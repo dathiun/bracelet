@@ -1,6 +1,9 @@
+
+
 <html lang="ar" dir="rtl">
 <head>
-    <title>اداة تصميم الاساور من داثيون</title>
+    <meta charset="UTF-8">
+    <title>DATHIUN | صمم سوارك</title>
     <style>
         body {
             margin: 0;
@@ -101,8 +104,10 @@
         <div class="main">
             <div class="bracelet-container" id="bracelet"></div>
             <div class="controls">
+                <p style="font-size: 13px; color: #555; margin-bottom: 10px;">
+                    بعد الانتهاء من التصميم، خذ لقطة شاشة وشاركنا بها عبر واتساب أو إنستقرام
+                </p>
                 <button onclick="resetBracelet()">إعادة التصميم</button>
-                <button onclick="saveBracelet()">تحميل الصورة</button>
             </div>
         </div>
 
@@ -111,7 +116,6 @@
 
     <div class="preview" id="previewBox"></div>
 
-    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
     <script>
         const stones = [
             'https://i.imgur.com/doUTIAd.png',
@@ -195,15 +199,6 @@
         function resetBracelet() {
             document.querySelectorAll('.slot').forEach(slot => {
                 slot.style.backgroundImage = '';
-            });
-        }
-
-        function saveBracelet() {
-            html2canvas(document.body).then(canvas => {
-                const link = document.createElement("a");
-                link.download = "bracelet_design.png";
-                link.href = canvas.toDataURL();
-                link.click();
             });
         }
     </script>
