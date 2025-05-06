@@ -1,4 +1,8 @@
 
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>اداة تصميم الاساور من داثيون</title>
     <style>
         body {
             margin: 0;
@@ -90,7 +94,7 @@
 </head>
 <body>
     <header>
-        <img src="https://i.imgur.com/kdFqlF7.png" alt="DATHIUN Store" style="max-width: 200px; height: auto;">
+        <img src="B633B1A9-7487-4CAF-A697-4486270D3F89.png" alt="DATHIUN Store" style="max-width: 200px; height: auto;">
         <h1 style="margin: 10px 0 5px; font-size: 24px; color: #222;">اصنع سوارك بنفسك</h1>
         <p style="margin: 0; font-size: 14px; color: #555;">اختر الحجر واضغط على المكان المناسب في السوار</p>
     </header>
