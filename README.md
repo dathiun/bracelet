@@ -190,7 +190,7 @@
         }
 
         function saveBracelet() {
-            html2canvas(document.querySelector(".bracelet-container")).then(function(canvas) {
+            html2canvas(document.body).then(function(canvas) {
                 const link = document.createElement("a");
                 link.download = "bracelet_design.png";
                 link.href = canvas.toDataURL();
