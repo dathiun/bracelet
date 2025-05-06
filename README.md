@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>DATHIUN Bracelet Designer</title>
+    <title>DATHIUN Designer</title>
     <style>
         body {
             margin: 0;
