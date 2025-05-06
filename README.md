@@ -1,9 +1,4 @@
 
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <title>اداة تصميم الاساور من داثيون</title>
     <style>
         body {
             margin: 0;
