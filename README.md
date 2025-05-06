@@ -8,39 +8,35 @@
         body {
             margin: 0;
             font-family: 'Arial', sans-serif;
-            background: url('https://i.imgur.com/d5RC4hm.jpeg') no-repeat center center fixed;
-    background-size: cover;
-    background-color: rgba(255, 255, 255, 0.3);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    margin: 0;
-    font-family: 'Arial', sans-serif;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    height: 100vh;
+            background: #ffffff;
+            display: flex;
+            flex-direction: column;
+        }
+        header {
+            text-align: center;
+            padding: 20px;
+            background-color: white;
+        }
+        .main-container {
             display: flex;
             flex-direction: row;
             justify-content: space-between;
             align-items: center;
             height: 100vh;
+            flex: 1;
         }
-
         .main {
             flex: 1;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
-
         .bracelet-container {
             position: relative;
             width: 400px;
             height: 400px;
             margin-top: 20px;
         }
-
         .slot {
             width: 40px;
             height: 40px;
@@ -53,11 +49,9 @@
             background-position: center;
             cursor: pointer;
         }
-
         .controls {
             margin-top: 20px;
         }
-
         .controls button {
             background: #f1c40f;
             border: none;
@@ -66,19 +60,17 @@
             font-size: 14px;
             cursor: pointer;
         }
-
         .sidebar {
             width: 240px;
             background: #f1c40f;
-            border-radius: 20px 0 0 20px;
+            border-radius: 0 20px 20px 0;
             padding: 20px 10px;
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 10px;
             height: auto;
-            margin-left: 20px;
+            margin-right: 20px;
         }
-
         .stone {
             width: 50px;
             height: 50px;
@@ -88,7 +80,6 @@
             border: 2px solid #fff;
             cursor: pointer;
         }
-
         .preview {
             position: fixed;
             bottom: 15px;
@@ -104,16 +95,23 @@
     </style>
 </head>
 <body>
+    <header>
+        <img src="B633B1A9-7487-4CAF-A697-4486270D3F89.png" alt="DATHIUN Store" style="max-width: 200px; height: auto;">
+        <h1 style="margin: 10px 0 5px; font-size: 24px; color: #222;">اصنع سوارك بنفسك</h1>
+        <p style="margin: 0; font-size: 14px; color: #555;">اختر الحجر واضغط على المكان المناسب في السوار</p>
+    </header>
 
-    <div class="main">
-        <div class="bracelet-container" id="bracelet"></div>
-        <div class="controls">
-            <button onclick="resetBracelet()">إعادة التصميم</button>
-            <button onclick="saveBracelet()">تحميل الصورة</button>
+    <div class="main-container">
+        <div class="main">
+            <div class="bracelet-container" id="bracelet"></div>
+            <div class="controls">
+                <button onclick="resetBracelet()">إعادة التصميم</button>
+                <button onclick="saveBracelet()">تحميل الصورة</button>
+            </div>
         </div>
-    </div>
 
-    <div class="sidebar" id="stonePanel"></div>
+        <div class="sidebar" id="stonePanel"></div>
+    </div>
 
     <div class="preview" id="previewBox"></div>
 
@@ -129,34 +127,28 @@
             'https://i.imgur.com/0pKk8zk.jpg',
             'https://i.imgur.com/uyht9Dr.jpg',
             'https://i.imgur.com/HoPAwzu.jpg',
-            'https://i.imgur.com/nAy4Sce.jpg',
-            'https://i.imgur.com/0RkHc7R.jpg',
-            'https://i.imgur.com/NnFQ1G5.jpg',
-            'https://i.imgur.com/xM9ksfC.jpg',
-            'https://i.imgur.com/JRSmeD1.jpg',
-            'https://i.imgur.com/t2B5Wpu.jpg',
-            'https://i.imgur.com/Y9Vb9bF.jpg'
+            'https://i.imgur.com/nAy4Sce.jpg'
         ];
 
         const stonePanel = document.getElementById("stonePanel");
         const previewBox = document.getElementById("previewBox");
         let selectedStone = "";
 
-        stones.forEach(stoneUrl => {
+        stones.forEach(function(stoneUrl) {
             const stone = document.createElement('div');
             stone.className = 'stone';
             stone.style.backgroundImage = `url('${stoneUrl}')`;
 
-            stone.addEventListener('click', () => {
+            stone.addEventListener('click', function() {
                 selectedStone = stoneUrl;
             });
 
-            stone.addEventListener('mouseover', () => {
+            stone.addEventListener('mouseover', function() {
                 previewBox.style.backgroundImage = `url('${stoneUrl}')`;
                 previewBox.style.display = "block";
             });
 
-            stone.addEventListener('mouseout', () => {
+            stone.addEventListener('mouseout', function() {
                 previewBox.style.display = "none";
             });
 
@@ -178,7 +170,7 @@
             slot.style.left = `${x}px`;
             slot.style.top = `${y}px`;
 
-            slot.addEventListener('click', () => {
+            slot.addEventListener('click', function() {
                 if (selectedStone) {
                     const current = slot.style.backgroundImage;
                     if (current.includes(selectedStone)) {
@@ -193,13 +185,13 @@
         }
 
         function resetBracelet() {
-            document.querySelectorAll('.slot').forEach(slot => {
+            document.querySelectorAll('.slot').forEach(function(slot) {
                 slot.style.backgroundImage = '';
             });
         }
 
         function saveBracelet() {
-            html2canvas(document.querySelector(".bracelet-container")).then(canvas => {
+            html2canvas(document.querySelector(".bracelet-container")).then(function(canvas) {
                 const link = document.createElement("a");
                 link.download = "bracelet_design.png";
                 link.href = canvas.toDataURL();
