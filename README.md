@@ -117,14 +117,14 @@
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
     <script>
         const stones = [
-            'https://i.imgur.com/V4oFzfl.jpg',
-            'https://i.imgur.com/I8B8nLx.jpg',
-            'https://i.imgur.com/ZlE6Snk.jpg',
-            'https://i.imgur.com/FOU9kK3.jpg',
-            'https://i.imgur.com/9AlRjsn.jpg',
-            'https://i.imgur.com/l9m95mL.jpg',
-            'https://i.imgur.com/0pKk8zk.jpg',
-            'https://i.imgur.com/uyht9Dr.jpg',
+            'https://i.imgur.com/doUTIAd.png',
+            'https://i.imgur.com/DGZ8tEY.png',
+            'https://i.imgur.com/u8OSpaa.png',
+            'https://i.imgur.com/5brUFSs.png',
+            'https://i.imgur.com/9fHyBAJ.png',
+            'https://i.imgur.com/MFlTbHw.png',
+            'https://i.imgur.com/zhX1hz6.png',
+            'https://i.imgur.com/6zFJUgn.png',
             'https://i.imgur.com/HoPAwzu.jpg',
             'https://i.imgur.com/nAy4Sce.jpg'
         ];
