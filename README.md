@@ -1,8 +1,9 @@
 
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>DATHIUN Designer</title>
+    <title>اداة تصميم الاساور من داثيون</title>
     <style>
         body {
             margin: 0;
@@ -21,7 +22,6 @@
             flex-direction: row;
             justify-content: space-between;
             align-items: center;
-            height: 100vh;
             flex: 1;
         }
         .main {
@@ -95,7 +95,7 @@
 </head>
 <body>
     <header>
-        <img src="https://i.imgur.com/kdFqlF7.png" alt="DATHIUN Store" style="max-width: 200px; height: auto;">
+        <img src="B633B1A9-7487-4CAF-A697-4486270D3F89.png" alt="DATHIUN Store" style="max-width: 200px; height: auto;">
         <h1 style="margin: 10px 0 5px; font-size: 24px; color: #222;">اصنع سوارك بنفسك</h1>
         <p style="margin: 0; font-size: 14px; color: #555;">اختر الحجر واضغط على المكان المناسب في السوار</p>
     </header>
@@ -117,14 +117,14 @@
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
     <script>
         const stones = [
-            'https://i.imgur.com/doUTIAd.png',
-            'https://i.imgur.com/DGZ8tEY.png',
-            'https://i.imgur.com/u8OSpaa.png',
-            'https://i.imgur.com/5brUFSs.png',
-            'https://i.imgur.com/9fHyBAJ.png',
-            'https://i.imgur.com/MFlTbHw.png',
-            'https://i.imgur.com/zhX1hz6.png',
-            'https://i.imgur.com/6zFJUgn.png',
+            'https://i.imgur.com/V4oFzfl.jpg',
+            'https://i.imgur.com/I8B8nLx.jpg',
+            'https://i.imgur.com/ZlE6Snk.jpg',
+            'https://i.imgur.com/FOU9kK3.jpg',
+            'https://i.imgur.com/9AlRjsn.jpg',
+            'https://i.imgur.com/l9m95mL.jpg',
+            'https://i.imgur.com/0pKk8zk.jpg',
+            'https://i.imgur.com/uyht9Dr.jpg',
             'https://i.imgur.com/HoPAwzu.jpg',
             'https://i.imgur.com/nAy4Sce.jpg'
         ];
@@ -133,21 +133,21 @@
         const previewBox = document.getElementById("previewBox");
         let selectedStone = "";
 
-        stones.forEach(function(stoneUrl) {
+        stones.forEach(stoneUrl => {
             const stone = document.createElement('div');
             stone.className = 'stone';
             stone.style.backgroundImage = `url('${stoneUrl}')`;
 
-            stone.addEventListener('click', function() {
+            stone.addEventListener('click', () => {
                 selectedStone = stoneUrl;
             });
 
-            stone.addEventListener('mouseover', function() {
+            stone.addEventListener('mouseover', () => {
                 previewBox.style.backgroundImage = `url('${stoneUrl}')`;
                 previewBox.style.display = "block";
             });
 
-            stone.addEventListener('mouseout', function() {
+            stone.addEventListener('mouseout', () => {
                 previewBox.style.display = "none";
             });
 
@@ -169,7 +169,7 @@
             slot.style.left = `${x}px`;
             slot.style.top = `${y}px`;
 
-            slot.addEventListener('click', function() {
+            slot.addEventListener('click', () => {
                 if (selectedStone) {
                     const current = slot.style.backgroundImage;
                     if (current.includes(selectedStone)) {
@@ -184,13 +184,13 @@
         }
 
         function resetBracelet() {
-            document.querySelectorAll('.slot').forEach(function(slot) {
+            document.querySelectorAll('.slot').forEach(slot => {
                 slot.style.backgroundImage = '';
             });
         }
 
         function saveBracelet() {
-            html2canvas(document.body).then(function(canvas) {
+            html2canvas(document.body).then(canvas => {
                 const link = document.createElement("a");
                 link.download = "bracelet_design.png";
                 link.href = canvas.toDataURL();
