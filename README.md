@@ -117,103 +117,90 @@
     <div class="preview" id="previewBox"></div>
 
     <script>
-        
-<script>
-const stones = [
-    { url: 'https://i.imgur.com/doUTIAd.png', name: 'حجر بركاني' },
-    { url: 'https://i.imgur.com/rjRfPu8.png', name: 'زجاج مطفي' },
-    { url: 'https://i.imgur.com/rK01MAV.png', name: 'زجاج لامع' },
-    { url: 'https://i.imgur.com/DGZ8tEY.png', name: 'حجر المغنيسيت' },
-    { url: 'https://i.imgur.com/u8OSpaa.png', name: 'حجر صيني غامق' },
-    { url: 'https://i.imgur.com/5brUFSs.png', name: 'حجر صيني فاتح' },
-    { url: 'https://i.imgur.com/9fHyBAJ.png', name: 'عين النمر أصفر' },
-    { url: 'https://i.imgur.com/MFlTbHw.png', name: 'عين النمر أزرق' },
-    { url: 'https://i.imgur.com/zhX1hz6.png', name: 'عين النمر أخضر' },
-    { url: 'https://i.imgur.com/6zFJUgn.png', name: 'عين النمر بنفسجي' },
-    { url: 'https://i.imgur.com/hpALoFh.png', name: 'حجر البيكاسو' },
-    { url: 'https://i.imgur.com/ZgGLKde.png', name: 'عقيق الأوركا' },
-    { url: 'https://i.imgur.com/ixxO9XM.png', name: 'حجر الجيمشيت' },
-    { url: 'https://i.imgur.com/fUjLdCJ.png', name: 'حجر السربنتين' },
-    { url: 'https://i.imgur.com/b35xnRX.png', name: 'حجر الجاسبر' },
-    { url: 'https://i.imgur.com/qyq8sbk.png', name: 'عقيق عين التنين' },
-    { url: 'https://i.imgur.com/rPiW3j8.png', name: 'زجاج أحمر' },
-    { url: 'https://i.imgur.com/nfZW3le.png', name: 'الأوبسيديان الأبيض' },
-    { url: 'https://i.imgur.com/mwG77GL.png', name: 'كوارتز سمائي' },
-    { url: 'https://i.imgur.com/BN9Bg7q.png', name: 'كوارتز أحمر' },
-    { url: 'https://i.imgur.com/vt7G56f.png', name: 'عقيق عرق التنين' },
-    { url: 'https://i.imgur.com/qTh2bwC.png', name: 'حجر السترين' },
-];
-const stonePanel = document.getElementById("stonePanel");
-const previewBox = document.getElementById("previewBox");
-let selectedStone = "";
+        const stones = [
+            { url: 'https://i.imgur.com/doUTIAd.png', name: 'حجر بركاني' },
+            { url: 'https://i.imgur.com/rjRfPu8.png', name: 'زجاج مطفي' },
+            { url: 'https://i.imgur.com/rK01MAV.png', name: 'زجاج لامع' },
+            { url: 'https://i.imgur.com/DGZ8tEY.png', name: 'حجر المغنيسيت' },
+            { url: 'https://i.imgur.com/u8OSpaa.png', name: 'حجر صيني غامق' },
+            { url: 'https://i.imgur.com/5brUFSs.png', name: 'حجر صيني فاتح' },
+            { url: 'https://i.imgur.com/9fHyBAJ.png', name: 'عين النمر أصفر' },
+            { url: 'https://i.imgur.com/MFlTbHw.png', name: 'عين النمر أزرق' },
+            { url: 'https://i.imgur.com/zhX1hz6.png', name: 'عين النمر أخضر' },
+            { url: 'https://i.imgur.com/6zFJUgn.png', name: 'عين النمر بنفسجي' },
+            { url: 'https://i.imgur.com/hpALoFh.png', name: 'حجر البيكاسو' },
+            { url: 'https://i.imgur.com/ZgGLKde.png', name: 'عقيق الأوركا' },
+            { url: 'https://i.imgur.com/ixxO9XM.png', name: 'حجر الجيمشيت' },
+            { url: 'https://i.imgur.com/fUjLdCJ.png', name: 'حجر السربنتين' },
+            { url: 'https://i.imgur.com/b35xnRX.png', name: 'حجر الجاسبر' },
+            { url: 'https://i.imgur.com/qyq8sbk.png', name: 'عقيق عين التنين' },
+            { url: 'https://i.imgur.com/rPiW3j8.png', name: 'زجاج أحمر' },
+            { url: 'https://i.imgur.com/nfZW3le.png', name: 'الأوبسيديان الأبيض' },
+            { url: 'https://i.imgur.com/mwG77GL.png', name: 'كوارتز سمائي' },
+            { url: 'https://i.imgur.com/BN9Bg7q.png', name: 'كوارتز أحمر' },
+            { url: 'https://i.imgur.com/vt7G56f.png', name: 'عقيق عرق التنين' },
+            { url: 'https://i.imgur.com/qTh2bwC.png', name: 'حجر السترين' },
+        ];
 
-stones.forEach(function(stone) {
-    const container = document.createElement('div');
-    container.style.textAlign = "center";
+        const stonePanel = document.getElementById("stonePanel");
+        const previewBox = document.getElementById("previewBox");
+        let selectedStone = "";
 
-    const stoneDiv = document.createElement('div');
-    stoneDiv.className = 'stone';
-    stoneDiv.style.backgroundImage = "url('" + stone.url + "')";
+        stones.forEach(stoneUrl => {
+            const stone = document.createElement('div');
+            stone.className = 'stone';
+            stone.style.backgroundImage = `url('${stoneUrl}')`;
 
-    const label = document.createElement('div');
-    label.style.fontSize = '12px';
-    label.style.color = '#222';
-    label.style.marginTop = '5px';
-    label.textContent = stone.name;
+            stone.addEventListener('click', () => {
+                selectedStone = stoneUrl;
+            });
 
-    stoneDiv.addEventListener('click', function() {
-        selectedStone = stone.url;
-    });
+            stone.addEventListener('mouseover', () => {
+                previewBox.style.backgroundImage = `url('${stoneUrl}')`;
+                previewBox.style.display = "block";
+            });
 
-    stoneDiv.addEventListener('mouseover', function() {
-        previewBox.style.backgroundImage = "url('" + stone.url + "')";
-        previewBox.style.display = "block";
-    });
+            stone.addEventListener('mouseout', () => {
+                previewBox.style.display = "none";
+            });
 
-    stoneDiv.addEventListener('mouseout', function() {
-        previewBox.style.display = "none";
-    });
+            stonePanel.appendChild(stone);
+        });
 
-    container.appendChild(stoneDiv);
-    container.appendChild(label);
-    stonePanel.appendChild(container);
-});
+        const bracelet = document.getElementById("bracelet");
+        const totalSlots = 24;
 
-const bracelet = document.getElementById("bracelet");
-const totalSlots = 24;
+        for (let i = 0; i < totalSlots; i++) {
+            const angle = (i / totalSlots) * 2 * Math.PI;
+            const radius = 160;
+            const x = 200 + radius * Math.cos(angle);
+            const y = 200 + radius * Math.sin(angle);
 
-for (let i = 0; i < totalSlots; i++) {
-    const angle = (i / totalSlots) * 2 * Math.PI;
-    const radius = 160;
-    const x = 200 + radius * Math.cos(angle);
-    const y = 200 + radius * Math.sin(angle);
+            const slot = document.createElement('div');
+            slot.className = 'slot';
+            slot.setAttribute('data-index', i);
+            slot.style.left = `${x}px`;
+            slot.style.top = `${y}px`;
 
-    const slot = document.createElement('div');
-    slot.className = 'slot';
-    slot.setAttribute('data-index', i);
-    slot.style.left = x + "px";
-    slot.style.top = y + "px";
+            slot.addEventListener('click', () => {
+                if (selectedStone) {
+                    const current = slot.style.backgroundImage;
+                    if (current.includes(selectedStone)) {
+                        slot.style.backgroundImage = "";
+                    } else {
+                        slot.style.backgroundImage = `url('${selectedStone}')`;
+                    }
+                }
+            });
 
-    slot.addEventListener('click', function() {
-        if (selectedStone) {
-            const current = slot.style.backgroundImage;
-            if (current.includes(selectedStone)) {
-                slot.style.backgroundImage = "";
-            } else {
-                slot.style.backgroundImage = "url('" + selectedStone + "')";
-            }
+            bracelet.appendChild(slot);
         }
-    });
 
-    bracelet.appendChild(slot);
-}
-
-function resetBracelet() {
-    document.querySelectorAll('.slot').forEach(function(slot) {
-        slot.style.backgroundImage = '';
-    });
-}
-</script>
-
+        function resetBracelet() {
+            document.querySelectorAll('.slot').forEach(slot => {
+                slot.style.backgroundImage = '';
+            });
+        }
+    </script>
 </body>
 </html>
