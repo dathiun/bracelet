@@ -21,20 +21,19 @@
       flex-direction: column;
       align-items: center;
     }
-    .stone-selection {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 10px;
-      margin-bottom: 20px;
-    }
-    .stone-selection-row {
+    .selection-bar {
       display: flex;
       gap: 10px;
+      margin-bottom: 10px;
     }
-    .stone-dropdown {
-      padding: 5px;
-      font-size: 14px;
+    .selection-slot {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      border: 2px dashed #aaa;
+      background-size: cover;
+      background-position: center;
+      cursor: pointer;
     }
     .bracelet-container {
       position: relative;
@@ -54,7 +53,7 @@
       cursor: pointer;
     }
     .controls {
-      margin-top: 20px;
+      margin-top: 10px;
     }
     .controls button {
       background: #2ecc71;
@@ -81,102 +80,85 @@
 </head>
 <body>
   <div class="main">
-    <div class="stone-selection" id="stoneSelection">
-      <div class="stone-selection-row">
-        <select class="stone-dropdown"></select>
-      </div>
-      <button onclick="addStoneDropdown()">+ إضافة حجر آخر</button>
-      <button onclick="generatePatternedBracelet()">ولّد التصميم الذكي</button>
-    </div>
-
-    <div class="bracelet-container" id="bracelet"></div>
+    <div class="selection-bar" id="selectionBar"></div>
     <div class="controls">
+      <button onclick="generatePatternedBracelet()">ولّد التصميم الذكي</button>
       <button onclick="resetBracelet()">إعادة التصميم</button>
     </div>
+    <div class="bracelet-container" id="bracelet"></div>
   </div>
 
   <div class="sidebar" id="stonePanel"></div>
 
   <script>
-    const stones = [
-  'https://i.imgur.com/doUTIAd.png',
-  'https://i.imgur.com/rjRfPu8.png',
-  'https://i.imgur.com/rK01MAV.png',
-  'https://i.imgur.com/DGZ8tEY.png',
-  'https://i.imgur.com/u8OSpaa.png',
-  'https://i.imgur.com/5brUFSs.png',
-  'https://i.imgur.com/9fHyBAJ.png',
-  'https://i.imgur.com/MFlTbHw.png',
-  'https://i.imgur.com/zhX1hz6.png',
-  'https://i.imgur.com/6zFJUgn.png',
-  'https://i.imgur.com/hpALoFh.png',
-  'https://i.imgur.com/ZgGLKde.png',
-  'https://i.imgur.com/ixxO9XM.png',
-  'https://i.imgur.com/fUjLdCJ.png',
-  'https://i.imgur.com/b35xnRX.png',
-  'https://i.imgur.com/qyq8sbk.png',
-  'https://i.imgur.com/rPiW3j8.png',
-  'https://i.imgur.com/nfZW3le.png',
-  'https://i.imgur.com/mwG77GL.png',
-  'https://i.imgur.com/BN9Bg7q.png',
-  'https://i.imgur.com/vt7G56f.png',
-  'https://i.imgur.com/qTh2bwC.png'
-];
+    const stoneImages = [
+      'https://i.imgur.com/doUTIAd.png','https://i.imgur.com/rjRfPu8.png','https://i.imgur.com/rK01MAV.png',
+      'https://i.imgur.com/DGZ8tEY.png','https://i.imgur.com/u8OSpaa.png','https://i.imgur.com/5brUFSs.png',
+      'https://i.imgur.com/9fHyBAJ.png','https://i.imgur.com/MFlTbHw.png','https://i.imgur.com/zhX1hz6.png',
+      'https://i.imgur.com/6zFJUgn.png','https://i.imgur.com/hpALoFh.png','https://i.imgur.com/ZgGLKde.png',
+      'https://i.imgur.com/ixxO9XM.png','https://i.imgur.com/fUjLdCJ.png','https://i.imgur.com/b35xnRX.png',
+      'https://i.imgur.com/qyq8sbk.png','https://i.imgur.com/rPiW3j8.png','https://i.imgur.com/nfZW3le.png',
+      'https://i.imgur.com/mwG77GL.png','https://i.imgur.com/BN9Bg7q.png','https://i.imgur.com/vt7G56f.png',
+      'https://i.imgur.com/qTh2bwC.png'
+    ];
+
+    const patterns = {
+      "A-B": [0, 1],
+      "A-B-B-A": [0, 1, 1, 0],
+      "A-B-C": [0, 1, 2],
+      "متماثل": "mirror",
+      "عشوائي": "random"
+    };
 
     const bracelet = document.getElementById("bracelet");
     const stonePanel = document.getElementById("stonePanel");
-    const stoneSelection = document.getElementById("stoneSelection");
-    let selectedStone = "";
-    const slots = [];
-    const totalSlots = 24;
+    const selectionBar = document.getElementById("selectionBar");
+    let currentStone = "";
+    const braceletSlots = [];
+    const selectedSlots = [];
+    const totalBraceletSlots = 24;
 
-    function createDropdown() {
-      const dropdown = document.createElement("select");
-      dropdown.className = "stone-dropdown";
-      stones.forEach(url => {
-        const option = document.createElement("option");
-        option.value = url;
-        option.textContent = url.split("/").pop();
-        dropdown.appendChild(option);
+    for (let i = 0; i < 6; i++) {
+      const selector = document.createElement("div");
+      selector.className = "selection-slot";
+      selector.dataset.index = i;
+      selector.addEventListener("click", () => {
+        if (currentStone) {
+          if (selector.dataset.value === currentStone) {
+            selector.style.backgroundImage = "";
+            selector.dataset.value = "";
+          } else {
+            selector.style.backgroundImage = `url('${currentStone}')`;
+            selector.dataset.value = currentStone;
+          }
+        }
       });
-      return dropdown;
-    }
-
-    function addStoneDropdown() {
-      const row = document.createElement("div");
-      row.className = "stone-selection-row";
-      row.appendChild(createDropdown());
-      stoneSelection.insertBefore(row, stoneSelection.children[stoneSelection.children.length - 2]);
-    }
-
-    function resetBracelet() {
-      slots.forEach(slot => slot.style.backgroundImage = '');
+      selectionBar.appendChild(selector);
+      selectedSlots.push(selector);
     }
 
     function generatePatternedBracelet() {
       resetBracelet();
-      const dropdowns = document.querySelectorAll('.stone-dropdown');
-      const selected = Array.from(dropdowns).map(d => d.value);
-      if (selected.length < 2) {
-        alert("اختر حجرين على الأقل لتوليد النمط الذكي.");
+      const selectedStones = selectedSlots.map(s => s.dataset.value).filter(Boolean);
+      if (selectedStones.length === 0) {
+        alert("اختر حجرًا واحدًا على الأقل لتوليد السوار.");
         return;
       }
-      const A = selected[0];
-      const B = selected[1];
 
-      const pattern = [A, B, B, A];
-      for (let i = 0; i < totalSlots; i++) {
-        if (i < 4) {
-          slots[i].style.backgroundImage = `url('${pattern[i]}')`;
-        } else {
-          // نكمل باقي السوار بحجر A أو B (نختار A هنا للبساطة)
-          slots[i].style.backgroundImage = `url('${A}')`;
-        }
+      const basePattern = patterns["A-B"]; // استخدم نمط قابل للتغيير لاحقًا
+      for (let i = 0; i < totalBraceletSlots; i++) {
+        const patternIndex = basePattern[i % basePattern.length];
+        const stone = selectedStones[patternIndex % selectedStones.length];
+        braceletSlots[i].style.backgroundImage = `url('${stone}')`;
       }
     }
 
-    for (let i = 0; i < totalSlots; i++) {
-      const angle = (i / totalSlots) * 2 * Math.PI;
+    function resetBracelet() {
+      braceletSlots.forEach(slot => slot.style.backgroundImage = '');
+    }
+
+    for (let i = 0; i < totalBraceletSlots; i++) {
+      const angle = (i / totalBraceletSlots) * 2 * Math.PI;
       const radius = 160;
       const x = 200 + radius * Math.cos(angle);
       const y = 200 + radius * Math.sin(angle);
@@ -188,21 +170,21 @@
       slot.setAttribute('data-index', i);
 
       slot.addEventListener('click', () => {
-        if (selectedStone) {
+        if (currentStone) {
           const current = slot.style.backgroundImage;
-          if (current.includes(selectedStone)) {
+          if (current.includes(currentStone)) {
             slot.style.backgroundImage = "";
           } else {
-            slot.style.backgroundImage = `url('${selectedStone}')`;
+            slot.style.backgroundImage = `url('${currentStone}')`;
           }
         }
       });
 
       bracelet.appendChild(slot);
-      slots.push(slot);
+      braceletSlots.push(slot);
     }
 
-    stones.forEach(stoneUrl => {
+    stoneImages.forEach(stoneUrl => {
       const stone = document.createElement('div');
       stone.className = 'stone';
       stone.style.width = '50px';
@@ -213,7 +195,7 @@
       stone.style.border = '2px solid #fff';
       stone.style.cursor = 'pointer';
       stone.style.backgroundImage = `url('${stoneUrl}')`;
-      stone.addEventListener('click', () => selectedStone = stoneUrl);
+      stone.addEventListener('click', () => currentStone = stoneUrl);
       stonePanel.appendChild(stone);
     });
   </script>
